@@ -178,6 +178,19 @@ overflow: hidden;
               </div>
             </div>
 
+            <!-- D-ID Agent Container (hidden by default) -->
+            <div id="avatar-chat-container" class="hidden mt-8 rounded-2xl overflow-hidden shadow-2xl border-4 border-purple-200">
+              <div class="bg-purple-50 p-4 border-b border-purple-200">
+                <div class="flex items-center justify-between">
+                  <h3 class="font-semibold text-purple-800 font-geist">AI Health Assistant</h3>
+                  <button onclick="closeAvatarChat()" class="p-1 rounded hover:bg-purple-200 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-purple-600"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+                  </button>
+                </div>
+              </div>
+              <div id="did-agent-target" class="h-96 bg-white"></div>
+            </div>
+
             <!-- Health Features Grid -->
             <div class="mt-12 initial-hidden animate-slide-up delay-300">
               <h2 class="text-lg font-semibold mb-6 flex items-center gap-2 font-geist">
@@ -344,13 +357,12 @@ overflow: hidden;
   <!-- D-ID Agent Integration -->
   <script type="module"
       src="https://agent.d-id.com/v2/index.js"
-      data-mode="fabio"
+      data-mode="full"
       data-client-key="Z29vZ2xlLW9hdXRoMnwxMTQzODQ0MzA0NDk2MjE0Njk0MTc6NFZVZm92UTU1b3A3cEkwZ2dwWkhH"
       data-agent-id="v2_agt_3W-fg2L9"
       data-name="did-agent"
       data-monitor="true"
-      data-orientation="horizontal"
-      data-position="right">
+      data-target-id="did-agent-target">
   </script>
 
   <!-- Initialize Lucide Icons -->
@@ -366,35 +378,37 @@ overflow: hidden;
       sidebar.classList.toggle('z-50');
     });
 
-    // Avatar chat function - triggers D-ID agent
+    // Avatar chat function - shows D-ID agent in container
     function openAvatarChat() {
-      // Try multiple methods to trigger D-ID agent
-      setTimeout(() => {
-        // Method 1: Look for D-ID floating button
-        const didFab = document.querySelector('.did-fab, .did-floating-button, .did-widget-fab');
-        if (didFab) {
-          didFab.click();
-          return;
-        }
+      console.log('Opening avatar chat...');
+      
+      // Show the chat container
+      const container = document.getElementById('avatar-chat-container');
+      if (container) {
+        container.classList.remove('hidden');
+        container.scrollIntoView({ behavior: 'smooth' });
         
-        // Method 2: Try to find and click D-ID iframe or widget
-        const didIframe = document.querySelector('iframe[src*="d-id"]');
-        if (didIframe) {
-          didIframe.style.display = 'block';
-          didIframe.style.visibility = 'visible';
-          return;
-        }
-        
-        // Method 3: Dispatch D-ID events
-        const event = new CustomEvent('did-agent-open');
-        window.dispatchEvent(event);
-        
-        // Method 4: Try global D-ID methods
-        if (window.DIDAgent) {
-          window.DIDAgent.open();
-        }
-      }, 1000);
+        // Initialize D-ID agent if not already done
+        setTimeout(() => {
+          if (window.DIDAgent) {
+            window.DIDAgent.init();
+          }
+        }, 500);
+      }
     }
+    
+    // Close avatar chat function
+    function closeAvatarChat() {
+      console.log('Closing avatar chat...');
+      const container = document.getElementById('avatar-chat-container');
+      if (container) {
+        container.classList.add('hidden');
+      }
+    }
+    
+    // Make functions globally available
+    window.openAvatarChat = openAvatarChat;
+    window.closeAvatarChat = closeAvatarChat;
 
     // Add click handlers for health service cards
     document.querySelectorAll('[class*="hover:border-"]').forEach(card => {

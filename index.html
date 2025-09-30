@@ -1,0 +1,417 @@
+<html lang="en" class="h-full scroll-smooth antialiased"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TeleHealth+ - Complete Health Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+body{font-family:'Inter',sans-serif}
+.progress-ring{background:conic-gradient(from 0deg, #06b6d4 0% 85%, #1f2937 85% 100%)}
+.animate-fade-in{animation:fadeIn 0.6s ease-out forwards}
+.animate-slide-up{animation:slideUp 0.8s ease-out forwards}
+.animate-blur-in{animation:blurIn 0.7s ease-out forwards}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blurIn{from{opacity:0;filter:blur(10px)}to{opacity:1;filter:blur(0)}}
+.delay-100{animation-delay:0.1s}
+.delay-200{animation-delay:0.2s}
+.delay-300{animation-delay:0.3s}
+.delay-400{animation-delay:0.4s}
+.delay-500{animation-delay:0.5s}
+.delay-600{animation-delay:0.6s}
+.initial-hidden{opacity:0}
+.browser-frame{
+box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+border-radius: 12px;
+overflow: hidden;
+}
+.browser-content{
+height: calc(100vh - 120px);
+overflow: hidden;
+}
+</style>
+<link id="all-fonts-link-font-geist" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist">.font-geist { font-family: 'Geist', sans-serif !important; }</style></head>
+<body class="min-h-screen bg-[url(https://images.unsplash.com/photo-1749765804331-dd830911ba1a?w=3840&amp;q=80)] bg-cover pt-8 pr-8 pb-8 pl-8 bg-gray-900">
+  <!-- Browser Frame -->
+  <div class="browser-frame max-w-7xl initial-hidden animate-fade-in mr-auto ml-auto bg-black">
+    <!-- Browser Chrome -->
+    <div class="flex gap-3 border-b pt-3 pr-4 pb-3 pl-4 items-center bg-stone-800 border-stone-700">
+      <div class="flex items-center gap-2">
+        <div class="w-3 h-3 rounded-full bg-orange-500"></div>
+        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+        <div class="w-3 h-3 rounded-full bg-pink-500"></div>
+      </div>
+      <div class="flex-1 rounded-lg px-4 py-2 mx-4 text-sm border bg-black text-stone-400 border-stone-700">
+        <div class="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="lock" class="lucide lucide-lock w-4 h-4 text-green-400"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <span class="font-geist text-stone-200">telehealth.app/dashboard</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="p-1 rounded transition-colors hover:bg-stone-700">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="refresh-cw" class="lucide lucide-refresh-cw w-4 h-4 text-gray-400"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>
+        </button>
+        <button class="p-1 rounded transition-colors hover:bg-stone-700">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 text-gray-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+        </button>
+        <button class="p-1 rounded transition-colors hover:bg-stone-700">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="more-horizontal" class="lucide lucide-more-horizontal w-4 h-4 text-gray-400"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Browser Content -->
+    <div class="browser-content bg-stone-100 text-stone-900">
+      <div class="flex h-full">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="hidden lg:flex flex-col w-20 initial-hidden animate-fade-in border-r pt-8 pb-8 items-center bg-stone-800 border-stone-700">
+          <button class="mb-10 p-2 rounded-lg transition-colors hover:bg-stone-700">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="heart-pulse" class="lucide lucide-heart-pulse w-6 h-6 text-cyan-400"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"></path><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3h5.27"></path></svg>
+          </button>
+          <nav class="flex flex-col gap-6">
+            <button class="flex items-center justify-center w-12 h-12 rounded-xl bg-red-500/30 hover:bg-red-500/40 transition-colors text-red-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="stethoscope" class="lucide lucide-stethoscope w-6 h-6"><path d="M11 2v2"></path><path d="M5 2v2"></path><path d="M5 3H4a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h1"></path><path d="M11 3h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-1"></path><path d="M8 8v3a4 4 0 0 0 8 0V8"></path><circle cx="20" cy="16" r="2"></circle><path d="m18 16 1.28-1.28a2.67 2.67 0 0 0 0-3.78l-.8-.8a2.67 2.67 0 0 0-3.78 0L12 12.5"></path></svg>
+            </button>
+            <button class="flex items-center justify-center w-12 h-12 rounded-xl transition-colors text-stone-400 hover:text-stone-200 hover:bg-stone-700">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar-days" class="lucide lucide-calendar-days w-6 h-6"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path><path d="M8 14h.01"></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path><path d="M8 18h.01"></path><path d="M12 18h.01"></path><path d="M16 18h.01"></path></svg>
+            </button>
+            <button class="flex items-center justify-center w-12 h-12 rounded-xl transition-colors text-stone-400 hover:text-stone-200 hover:bg-stone-700">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="pill" class="lucide lucide-pill w-6 h-6"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path><path d="m8.5 8.5 7 7"></path></svg>
+            </button>
+            <button class="flex items-center justify-center w-12 h-12 rounded-xl transition-colors text-stone-400 hover:text-stone-200 hover:bg-stone-700">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="activity" class="lucide lucide-activity w-6 h-6"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"></path></svg>
+            </button>
+            <button class="flex items-center justify-center w-12 h-12 rounded-xl transition-colors text-stone-400 hover:text-stone-200 hover:bg-stone-700">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="shield-alert" class="lucide lucide-shield-alert w-6 h-6"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg>
+            </button>
+            <button class="flex items-center justify-center w-12 h-12 rounded-xl transition-colors text-stone-400 hover:text-stone-200 hover:bg-stone-700">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="users" class="lucide lucide-users w-6 h-6"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
+            </button>
+          </nav>
+          <div class="mt-auto">
+            <button class="flex items-center justify-center w-12 h-12 rounded-xl transition-colors text-stone-400 hover:text-stone-200 hover:bg-stone-700">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="settings" class="lucide lucide-settings w-6 h-6"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </button>
+          </div>
+        </aside>
+
+        <!-- Mobile Sidebar Toggle -->
+        <button id="mobile-toggle" class="fixed top-16 left-4 z-20 lg:hidden p-3 rounded-lg border transition-colors bg-stone-200 border-stone-300 hover:bg-stone-300">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="menu" class="lucide lucide-menu w-5 h-5 text-gray-700"><path d="M4 12h16"></path><path d="M4 18h16"></path><path d="M4 6h16"></path></svg>
+        </button>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex overflow-hidden">
+          <!-- Board -->
+          <section class="flex-1 overflow-y-auto p-4 lg:p-8">
+            <!-- Header -->
+            <header class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 initial-hidden animate-slide-up">
+              <div class="">
+                <h1 class="lg:text-3xl text-2xl font-semibold tracking-tight font-geist">TeleHealth+ Dashboard</h1>
+                <p class="text-sm mt-1 font-geist text-stone-600">Your complete health companion with 24/7 care and monitoring</p>
+              </div>
+              <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2 rounded-lg px-3 py-2 border bg-red-100 border-red-200">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="phone" class="lucide lucide-phone w-4 h-4 text-red-600"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  <span class="text-sm font-geist text-red-700">24/7 Emergency</span>
+                  <div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+                </div>
+                <div class="hidden md:flex items-center gap-3">
+                  <button class="p-2 rounded-lg transition-colors hover:bg-stone-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="search" class="lucide lucide-search w-5 h-5 text-gray-600"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
+                  </button>
+                  <button class="p-2 rounded-lg transition-colors relative hover:bg-stone-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="bell" class="lucide lucide-bell w-5 h-5 text-gray-600"><path d="M10.268 21a2 2 0 0 0 3.464 0"></path><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"></path></svg>
+                    <span class="absolute -top-1 -right-1 w-3 h-3 bg-orange-500 rounded-full flex items-center justify-center">
+                      <span class="text-xs font-geist text-black">3</span>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </header>
+
+            <!-- Service Categories -->
+            <div class="mt-8 flex gap-6 border-b initial-hidden animate-slide-up delay-100 border-stone-300">
+              <button class="py-3 text-sm font-medium border-b-2 transition-colors font-geist text-red-600 border-red-600 hover:text-red-700">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="heart-pulse" class="lucide lucide-heart-pulse w-4 h-4 inline mr-2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"></path><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3h5.27"></path></svg>Vitals
+              </button>
+              <button class="py-3 text-sm transition-colors font-geist text-stone-600 hover:text-stone-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="pill" class="lucide lucide-pill w-4 h-4 inline mr-2"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path><path d="m8.5 8.5 7 7"></path></svg>Medication
+              </button>
+              <button class="py-3 text-sm transition-colors font-geist text-stone-600 hover:text-stone-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="stethoscope" class="lucide lucide-stethoscope w-4 h-4 inline mr-2"><path d="M11 2v2"></path><path d="M5 2v2"></path><path d="M5 3H4a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h1"></path><path d="M11 3h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-1"></path><path d="M8 8v3a4 4 0 0 0 8 0V8"></path><circle cx="20" cy="16" r="2"></circle><path d="m18 16 1.28-1.28a2.67 2.67 0 0 0 0-3.78l-.8-.8a2.67 2.67 0 0 0-3.78 0L12 12.5"></path></svg>Consultations
+              </button>
+              <button class="py-3 text-sm transition-colors font-geist text-stone-600 hover:text-stone-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="shield-alert" class="lucide lucide-shield-alert w-4 h-4 inline mr-2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg>Emergency
+              </button>
+            </div>
+
+            <!-- AI Health Assistant Banner -->
+            <div class="mt-8 initial-hidden animate-slide-up delay-200">
+              <div class="bg-gradient-to-r from-purple-500 to-indigo-600 rounded-2xl p-8 text-white relative overflow-hidden">
+                <div class="flex items-center justify-between">
+                  <div class="flex-1">
+                    <h2 class="text-2xl font-bold font-geist mb-2">Meet Your AI Health Assistant</h2>
+                    <p class="text-purple-100 font-geist mb-4">Get instant answers to your health questions, medication reminders, and personalized wellness guidance available 24/7.</p>
+                    <button 
+                      onclick="openAvatarChat()" 
+                      class="bg-white text-purple-600 px-6 py-3 rounded-xl font-semibold font-geist hover:bg-purple-50 transition-colors flex items-center gap-2 shadow-lg"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="message-circle" class="lucide lucide-message-circle w-5 h-5"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
+                      Start Conversation
+                    </button>
+                  </div>
+                  <div class="ml-8 relative">
+                    <div class="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/30">
+                      <div class="text-6xl">👩‍⚕️</div>
+                    </div>
+                    <div class="absolute -top-2 -right-2 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center">
+                      <div class="w-3 h-3 bg-green-600 rounded-full animate-pulse"></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Decorative elements -->
+                <div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full"></div>
+                <div class="absolute -left-8 -bottom-8 w-32 h-32 bg-white/5 rounded-full"></div>
+              </div>
+            </div>
+
+            <!-- Health Features Grid -->
+            <div class="mt-12 initial-hidden animate-slide-up delay-300">
+              <h2 class="text-lg font-semibold mb-6 flex items-center gap-2 font-geist">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="grid-3x3" class="lucide lucide-grid-3x3 w-5 h-5 text-cyan-600"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M9 3v18"></path><path d="M15 3v18"></path><path d="M3 9h18"></path><path d="M3 15h18"></path></svg>
+                Health Services
+              </h2>
+              <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+                <div class="p-4 rounded-xl border transition-all hover:shadow-md hover:border-red-300 cursor-pointer bg-white border-stone-200">
+                  <div class="text-center">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-red-100 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="heart" class="lucide lucide-heart w-6 h-6 text-red-600"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"></path></svg>
+                    </div>
+                    <h3 class="font-medium text-sm font-geist">Vitals Tracking</h3>
+                  </div>
+                </div>
+                
+                <div class="p-4 rounded-xl border transition-all hover:shadow-md hover:border-blue-300 cursor-pointer bg-white border-stone-200">
+                  <div class="text-center">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-blue-100 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="pill" class="lucide lucide-pill w-6 h-6 text-blue-600"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path><path d="m8.5 8.5 7 7"></path></svg>
+                    </div>
+                    <h3 class="font-medium text-sm font-geist">Medication Mgmt</h3>
+                  </div>
+                </div>
+
+                <div class="p-4 rounded-xl border transition-all hover:shadow-md hover:border-green-300 cursor-pointer bg-white border-stone-200">
+                  <div class="text-center">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-green-100 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar-check" class="lucide lucide-calendar-check w-6 h-6 text-green-600"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path><path d="m9 16 2 2 4-4"></path></svg>
+                    </div>
+                    <h3 class="font-medium text-sm font-geist">Appointments</h3>
+                  </div>
+                </div>
+
+                <div class="p-4 rounded-xl border transition-all hover:shadow-md hover:border-purple-300 cursor-pointer bg-white border-stone-200">
+                  <div class="text-center">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-purple-100 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="brain" class="lucide lucide-brain w-6 h-6 text-purple-600"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"></path><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"></path><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"></path><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"></path><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"></path><path d="M3.477 10.896a4 4 0 0 1 .585-.396"></path><path d="M19.938 10.5a4 4 0 0 1 .585.396"></path><path d="M6 18a4 4 0 0 1-1.967-.516"></path><path d="M19.967 17.484A4 4 0 0 1 18 18"></path></svg>
+                    </div>
+                    <h3 class="font-medium text-sm font-geist">Mental Health</h3>
+                  </div>
+                </div>
+
+                <div class="p-4 rounded-xl border transition-all hover:shadow-md hover:border-orange-300 cursor-pointer bg-white border-stone-200">
+                  <div class="text-center">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-orange-100 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="home" class="lucide lucide-home w-6 h-6 text-orange-600"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9,22 9,12 15,12 15,22"></polyline></svg>
+                    </div>
+                    <h3 class="font-medium text-sm font-geist">Daily Living</h3>
+                  </div>
+                </div>
+
+                <div class="p-4 rounded-xl border transition-all hover:shadow-md hover:border-red-300 cursor-pointer bg-white border-stone-200">
+                  <div class="text-center">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-red-100 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="siren" class="lucide lucide-siren w-6 h-6 text-red-600"><path d="M7 18v-6a5 5 0 1 1 10 0v6"></path><path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z"></path><path d="M21 12h1"></path><path d="M18.5 4.5 19 4"></path><path d="M2 12h1"></path><path d="M12 2v1"></path><path d="m4.929 4.929.707.707"></path><path d="M12 12v6"></path></svg>
+                    </div>
+                    <h3 class="font-medium text-sm font-geist">Emergency</h3>
+                  </div>
+                </div>
+
+                <div class="p-4 rounded-xl border transition-all hover:shadow-md hover:border-indigo-300 cursor-pointer bg-white border-stone-200">
+                  <div class="text-center">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-indigo-100 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="moon" class="lucide lucide-moon w-6 h-6 text-indigo-600"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+                    </div>
+                    <h3 class="font-medium text-sm font-geist">Sleep Tracking</h3>
+                  </div>
+                </div>
+
+                <div class="p-4 rounded-xl border transition-all hover:shadow-md hover:border-yellow-300 cursor-pointer bg-white border-stone-200">
+                  <div class="text-center">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-yellow-100 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="shopping-cart" class="lucide lucide-shopping-cart w-6 h-6 text-yellow-600"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>
+                    </div>
+                    <h3 class="font-medium text-sm font-geist">Shopping</h3>
+                  </div>
+                </div>
+
+                <div class="p-4 rounded-xl border transition-all hover:shadow-md hover:border-pink-300 cursor-pointer bg-white border-stone-200">
+                  <div class="text-center">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-pink-100 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="users" class="lucide lucide-users w-6 h-6 text-pink-600"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                    </div>
+                    <h3 class="font-medium text-sm font-geist">Family Care</h3>
+                  </div>
+                </div>
+
+                <div class="p-4 rounded-xl border transition-all hover:shadow-md hover:border-teal-300 cursor-pointer bg-white border-stone-200">
+                  <div class="text-center">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-teal-100 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="graduation-cap" class="lucide lucide-graduation-cap w-6 h-6 text-teal-600"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg>
+                    </div>
+                    <h3 class="font-medium text-sm font-geist">Health Education</h3>
+                  </div>
+                </div>
+
+                <div class="p-4 rounded-xl border transition-all hover:shadow-md hover:border-cyan-300 cursor-pointer bg-white border-stone-200">
+                  <div class="text-center">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-cyan-100 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="activity" class="lucide lucide-activity w-6 h-6 text-cyan-600"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"></path></svg>
+                    </div>
+                    <h3 class="font-medium text-sm font-geist">Movement Monitor</h3>
+                  </div>
+                </div>
+
+                <div class="p-4 rounded-xl border transition-all hover:shadow-md hover:border-emerald-300 cursor-pointer bg-white border-stone-200">
+                  <div class="text-center">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-emerald-100 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="smile" class="lucide lucide-smile w-6 h-6 text-emerald-600"><circle cx="12" cy="12" r="10"></circle><path d="m8 14 4 4 4-4"></path><path d="M9 9h.01"></path><path d="M15 9h.01"></path></svg>
+                    </div>
+                    <h3 class="font-medium text-sm font-geist">Mood Tracking</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Health Actions -->
+            <div class="mt-16">
+              <h2 class="text-lg font-semibold mb-6 flex items-center gap-2 initial-hidden animate-slide-up delay-400 font-geist">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="zap" class="lucide lucide-zap w-5 h-5 text-cyan-600"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg>
+                Quick Health Actions
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+                <button class="bg-red-500/20 rounded-xl p-6 text-center hover:bg-red-500/30 transition-colors border border-red-200">
+                  <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-red-500 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="phone" class="lucide lucide-phone w-6 h-6 text-white"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  </div>
+                  <h3 class="font-semibold text-red-700 font-geist">Emergency Call</h3>
+                  <p class="text-sm text-red-600 mt-1 font-geist">24/7 immediate assistance</p>
+                </button>
+
+                <button class="bg-blue-500/20 rounded-xl p-6 text-center hover:bg-blue-500/30 transition-colors border border-blue-200">
+                  <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-blue-500 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="video" class="lucide lucide-video w-6 h-6 text-white"><path d="M16 2h2a1 1 0 0 1 1 1v1.73a2 2 0 0 1-.64 1.46L15 9.5a2 2 0 0 0-.64 1.46V18a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h12z"></path></svg>
+                  </div>
+                  <h3 class="font-semibold text-blue-700 font-geist">Video Consultation</h3>
+                  <p class="text-sm text-blue-600 mt-1 font-geist">Connect with doctors</p>
+                </button>
+
+                <button class="bg-green-500/20 rounded-xl p-6 text-center hover:bg-green-500/30 transition-colors border border-green-200">
+                  <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-green-500 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="heart-pulse" class="lucide lucide-heart-pulse w-6 h-6 text-white"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"></path><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3h5.27"></path></svg>
+                  </div>
+                  <h3 class="font-semibold text-green-700 font-geist">Log Vitals</h3>
+                  <p class="text-sm text-green-600 mt-1 font-geist">Track health metrics</p>
+                </button>
+
+                <button class="bg-purple-500/20 rounded-xl p-6 text-center hover:bg-purple-500/30 transition-colors border border-purple-200">
+                  <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-purple-500 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar-plus" class="lucide lucide-calendar-plus w-6 h-6 text-white"><path d="M16 19h6"></path><path d="M16 2v4"></path><path d="M19 16v6"></path><path d="M21 12.598V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8.5"></path><path d="M3 10h18"></path><path d="M8 2v4"></path></svg>
+                  </div>
+                  <h3 class="font-semibold text-purple-700 font-geist">Schedule</h3>
+                  <p class="text-sm text-purple-600 mt-1 font-geist">Book appointments</p>
+                </button>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- D-ID Agent Integration -->
+  <script type="module"
+      src="https://agent.d-id.com/v2/index.js"
+      data-mode="fabio"
+      data-client-key="Z29vZ2xlLW9hdXRoMnwxMTQzODQ0MzA0NDk2MjE0Njk0MTc6NFZVZm92UTU1b3A3cEkwZ2dwWkhH"
+      data-agent-id="v2_agt_3W-fg2L9"
+      data-name="did-agent"
+      data-monitor="true"
+      data-orientation="horizontal"
+      data-position="right">
+  </script>
+
+  <!-- Initialize Lucide Icons -->
+  <script>
+    lucide.createIcons();
+    
+    // Mobile sidebar toggle
+    document.getElementById('mobile-toggle').addEventListener('click', function() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('hidden');
+      sidebar.classList.toggle('fixed');
+      sidebar.classList.toggle('inset-0');
+      sidebar.classList.toggle('z-50');
+    });
+
+    // Avatar chat function - triggers D-ID agent
+    function openAvatarChat() {
+      // Try multiple methods to trigger D-ID agent
+      setTimeout(() => {
+        // Method 1: Look for D-ID floating button
+        const didFab = document.querySelector('.did-fab, .did-floating-button, .did-widget-fab');
+        if (didFab) {
+          didFab.click();
+          return;
+        }
+        
+        // Method 2: Try to find and click D-ID iframe or widget
+        const didIframe = document.querySelector('iframe[src*="d-id"]');
+        if (didIframe) {
+          didIframe.style.display = 'block';
+          didIframe.style.visibility = 'visible';
+          return;
+        }
+        
+        // Method 3: Dispatch D-ID events
+        const event = new CustomEvent('did-agent-open');
+        window.dispatchEvent(event);
+        
+        // Method 4: Try global D-ID methods
+        if (window.DIDAgent) {
+          window.DIDAgent.open();
+        }
+      }, 1000);
+    }
+
+    // Add click handlers for health service cards
+    document.querySelectorAll('[class*="hover:border-"]').forEach(card => {
+      if (card.querySelector('h3')) {
+        card.addEventListener('click', function() {
+          const title = this.querySelector('h3').textContent;
+          alert(`Opening ${title}...`);
+        });
+      }
+    });
+
+    // Listen for D-ID agent ready event
+    window.addEventListener('message', function(event) {
+      if (event.data && event.data.type === 'did-agent-ready') {
+        console.log('D-ID Agent is ready!');
+      }
+    });
+  </script>
+
+</body></html>

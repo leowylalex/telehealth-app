@@ -1,0 +1,128 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id  String @id @default(uuid())
+  name  String
+  userId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  messages Message[]
+}
+
+enum MessageRole {
+  USER
+  ASSISTANT
+}
+
+enum MessageType {
+  RESULT
+  ERROR
+  APPROVAL_REQUEST
+}
+
+enum ErrorSeverity {
+  LOW      // Minor issues, safe to auto-fix
+  MEDIUM   // Moderate issues, suggest fixes with approval
+  HIGH     // Critical issues, require human review
+  CRITICAL // System failures, escalate immediately
+}
+
+enum ErrorCategory {
+  COMPILATION    // Build/compile errors
+  DEPENDENCY     // Missing packages/imports
+  SYNTAX         // Code syntax issues  
+  LOGIC          // Application logic errors
+  INFRASTRUCTURE // Sandbox/system issues
+  USER_INPUT     // Invalid user requests
+}
+
+enum ApprovalStatus {
+  PENDING     // Awaiting human review
+  APPROVED    // Human approved the fix
+  REJECTED    // Human rejected the fix
+  AUTO_FIXED  // Automatically applied (low severity only)
+}
+
+model Message {
+  id  String @id @default(uuid())
+  content String
+  role MessageRole
+  type MessageType
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  projectId String
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  fragment Fragment?
+  errorLog ErrorLog?
+}
+
+model Fragment {
+  id  String @id @default(uuid())
+  messageId String @unique
+  message Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  sandboxUrl String
+  title String
+  files Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Usage {
+  key String  @id
+  points Int
+  expire DateTime?
+}
+
+model ErrorLog {
+  id          String        @id @default(uuid())
+  messageId   String        @unique
+  message     Message       @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  
+  category    ErrorCategory
+  severity    ErrorSeverity
+  errorData   Json          // Original error details
+  diagnostic  String        // AI-generated error analysis
+  
+  proposedFixes ProposedFix[]
+  
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model ProposedFix {
+  id            String         @id @default(uuid())
+  errorLogId    String
+  errorLog      ErrorLog       @relation(fields: [errorLogId], references: [id], onDelete: Cascade)
+  
+  description   String         // Human-readable fix description
+  fixData       Json           // Proposed code changes/commands
+  reasoning     String         // AI explanation of the fix
+  confidence    Float          // AI confidence in fix (0.0-1.0)
+  
+  status        ApprovalStatus @default(PENDING)
+  reviewedBy    String?        // User ID who reviewed
+  reviewedAt    DateTime?      // When reviewed
+  feedback      String?        // Human reviewer feedback
+  
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
